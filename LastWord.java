@@ -19,39 +19,36 @@ Case #7: ZXCASDQWE
  */
 public class LastWord {
 
-    public static void main(String [] args){
+ public static void main(String [] args){
         Scanner sc = new Scanner(System.in);
         int tests = sc.nextInt();
         for ( int i =0; i< tests;i++){
             String st = sc.next();
-            lastWord(i+1,st);
+            generateLastWord(st);
+            var test = i+1;
+            System.out.println("Case:"+ test+ " "+generateLastWord(st) );
         }
     }
-    public static void lastWord(int testCase, String word) {
-        System.out.println("Case #"+ testCase+ ": "+generateLastWord(word) );
-    }
-
 
     public static String generateLastWord(String word){
-        Set<String>words = new HashSet<>();
+
+        List<String>words = new ArrayList<>();
         String st = ""+word.charAt(0);
-        String last = "";
         for ( int i = 1;i<= word.length()-1;i++){
             if(word.charAt(i)>st.charAt(0)){
                 st=word.charAt(i)+st;
             }else{
                 st+=word.charAt(i);
             }
+
             if(i==word.length()-1){
                 words.add(st);
-                last = word.charAt(word.length()-1)+st.substring(0,st.length()-1);
-                words.add(last);
+                words.add(word.charAt(word.length()-1)+st.substring(0,st.length()-1));
             }
         }
 
-      List<String>toSort = new ArrayList<>(words);
-        Collections.sort(toSort);
-        return toSort.get(toSort.size()-1);
+        Collections.sort(words);
+        return words.get(words.size()-1);
     }
 
 }
