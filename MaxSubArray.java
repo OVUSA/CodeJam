@@ -8,34 +8,23 @@ public class MaxSubArray {
         System.out.println(maxSubArray(nums));
     }
 
-
     public static int maxSubArray(int[] nums) {
-        if (nums.length==1){
+        int max = Integer.MIN_VALUE;
+        int sum = 0;
+        if(nums.length==1){
             return nums[0];
         }
-
-        List<Integer> sums= new ArrayList<>();
-
-        int i= 0;
-        int j = nums.length-1;
-        int left = nums[0];
-        int right = nums[nums.length-1];
-
-        while(i<nums.length-1){
-            if((left+nums[i+1])<=( right+nums[j-1])){
-                sums.add(right+nums[j-1]);
-                right +=nums[j-1];
-                j--;
-
+        for(int num:nums){
+            // сравнить сумму предыдущих цифр c настоящим число ,если сумма больше то добавляем в сумму
+            // в обратном случаи сознадем новый массив
+            if((sum+num)> num){
+                sum+=num;
             }else{
-                sums.add(left+nums[i+1]);
-                left +=nums[i+1];
-                i++;
-
+                sum=num;
             }
-        }
-        Collections.sort(sums);
-        return sums.get(sums.size()-1);
+            max = Math.max(sum,max);
 
+        }
+        return max;
     }
 }
